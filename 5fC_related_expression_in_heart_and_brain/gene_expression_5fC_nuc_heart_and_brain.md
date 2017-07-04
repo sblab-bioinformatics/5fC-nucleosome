@@ -22,8 +22,15 @@ comes directly from RNA-seq.
 
 ## Differential expression KO vs WT in each tissue
 
-The processing of the data has been done here,
-[redo_de_diff_tissues_and_tdg.ipynb](scripts/redo_de_diff_tissues_and_tdg.ipynb), and [brain_vs_heart_de_Ren.ipynb](scripts/brain_vs_heart_de_Ren.ipynb).
+The processing of the data has been done using the following notebooks,
+
+We have processed the data using [this](scripts/WT_vs_TDG_KO_DE_in_heart_and_brain.ipynb) notebook.
+
+## Differential expression between heart/hindbrain tissues, in WT and TDG-KO
+
+We have processed the data using [this](scripts/brain_vs_heart_DE_via_RenLab_enhancers.ipynb) notebook.
+
+----
 
 Number of overlapping enhancer with 5fC-Nuc / not-5fC-Nuc, not considering gene
 expression.
