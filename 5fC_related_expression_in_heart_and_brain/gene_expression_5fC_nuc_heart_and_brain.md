@@ -22,8 +22,6 @@ comes directly from RNA-seq.
 
 ## Differential expression KO vs WT in each tissue
 
-The processing of the data has been done using the following notebooks,
-
 We have processed the data using [this](scripts/WT_vs_TDG_KO_DE_in_heart_and_brain.ipynb) notebook.
 
 ## Differential expression between heart/hindbrain tissues, in WT and TDG-KO
