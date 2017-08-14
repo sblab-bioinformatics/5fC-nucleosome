@@ -1,5 +1,7 @@
 # Compute the DE between heart and hindbrain tissues, in WT and KO.
 
+Please note that the paths given here are specific to the computer in which the analysis was performed.
+
 Join together the counts from all tissues and conditions,
 
 ```bash

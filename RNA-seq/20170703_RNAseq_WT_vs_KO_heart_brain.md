@@ -1,5 +1,7 @@
 # Differential expression brain and heart
 
+Please note that the paths given here are specific to the computer in which the analysis was performed. 
+
 # RNA-seq heart WT and TDG-KO
 
 Raw data is in
