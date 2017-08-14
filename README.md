@@ -2,8 +2,6 @@
 
 This repository contains a description of the computational methods associated to the manuscript (include link).
 
-This repository is work in progress. 
-
 Details about the analyses are given in the following sections:
 
 - [5fC pull down](5fC_pull_down/README.md)
