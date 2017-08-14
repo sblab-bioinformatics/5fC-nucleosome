@@ -1,7 +1,7 @@
 
 ## Datasets
 
-We used previously published datasets from [Iurlaro et al., 2016](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1001-5).`.bam` files obtained following the details in:
+We used previously published datasets from [Iurlaro et al., 2016](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1001-5). The corresponding `.bam` files were obtained following the details available in:
 
 - GEO [GSE77447](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE77447)
 - ArrayExpress [E-GEOD-77447](http://www.ebi.ac.uk/arrayexpress/experiments/E-GEOD-77447/)
@@ -22,9 +22,18 @@ Alignment metrics were obtained with `picard.jar CollectAlignmentSummaryMetrics`
 
 Whitelist regions for the `mm9` mouse reference genome were prepared from blacklist regions available [here](https://sites.google.com/site/anshulkundaje/projects/blacklists) using `complementBed`.
 
-Filtering was performed with `samtools view` and duplicate reads were marked with `picard.jar MarkDuplicates`
+Filtering was performed with `samtools view` and duplicate reads were marked with `picard.jar MarkDuplicates`.
 
 
 ## Peak calling
 
+Peaks were called using `macs2 callpeak` functionality using standard parameters:
+
+```bash
+macs2 callpeak --keep-dup all -t $bname.tmp.bam -g 2.5e9 -n $bname
+```
+
 http://10.20.192.25:3000/projects/20150309-gordon-redbs-mesc/wiki/30-04-2015_Peak_calling
+
+
+
