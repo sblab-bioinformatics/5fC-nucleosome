@@ -12,6 +12,7 @@ We used previously published datasets from [Iurlaro et al., 2016](https://genome
 - [samtools v1.2](http://samtools.sourceforge.net/)
 - [picard v1.138](https://broadinstitute.github.io/picard/)
 - [bedtools v2.25.0](http://bedtools.readthedocs.io/en/latest/)
+- [macs2 v2.1.1.20160226](https://github.com/taoliu/MACS)
 
 
 ## Processing
@@ -27,13 +28,21 @@ Filtering was performed with `samtools view` and duplicate reads were marked wit
 
 ## Peak calling
 
-Peaks were called using `macs2 callpeak` functionality using standard parameters:
+Peaks were called using `macs2 callpeak` with a default q-value threshold of 0.05 and the following parameters:
 
 ```bash
-macs2 callpeak --keep-dup all -t $bname.tmp.bam -g 2.5e9 -n $bname
+macs2 callpeak --keep-dup all -t $input.bam -g 2.5e9 -n $output
 ```
 
-http://10.20.192.25:3000/projects/20150309-gordon-redbs-mesc/wiki/30-04-2015_Peak_calling
+where `$input.bam` is the input file, `2.5e9` is the effective genome size and `$output` is the output file name. This resulted in `narrowPeak` bed files.
+
+Consensus peaks were obtained using `mergeBed` where a minimum of two peaks overlap by at least 1bp:
+
+```bash
+cat *.narrowPeak | sort -k1,1 -k2,2n | awk -v OFS='\t' '{sub("\\..*", "", $4); print $0}' | mergeBed -c 4,4 -o distinct,count_distinct -i - > grm_5fC_merged.bed
+
+awk '$5 > 1' grm_5fC_merged.bed > grm_5fC_consensus.bed
+```
 
 
 
