@@ -97,9 +97,9 @@ bedtools intersect -a heart_mnase_wt_j9.bed.gz -b heart_mnase_wt_kt.bed.gz -f 0.
 
 ### Nucleosomes occupancy in Heart vs Brain considering 5fC
 
-The nucleosome peak calling was done by using iNPS, see [here](../MNase-seq/README.md)
-
-[This notebook](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) collects the data and calculates the statistical significance of difference 
+The nucleosome peak calling was done by using iNPS, see [here](../MNase-seq/README.md).
+[This](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) `jupyter/python` notebook collects the data and calculates 
+the statistical significance of difference 
 between the two pairs of distributions. 
 
 
@@ -111,20 +111,9 @@ Using the unique-to-heart, unique-to-brain, in combination with presence or
 absence of nucleosomes, we want to relate these sites with enhancers, and
 from there to gene expression differences.
 
-
-## Gene expression Brain vs Heart
-
-
 ### New unique sites Brain vs Heart in WT
 
-`Guillem laptop`
-
 ```bash
-cd ~/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/nucleosome_diff_positions_vs_5fC_heart_vs_brain
-
-ln -s ../nucleosome_density_vs_5fC_heart_vs_brain/ConsensusNucleosome_iNPS_Brain_WT_noMT.bed .
-
-ln -s ../nucleosome_density_vs_5fC_heart_vs_brain/ConsensusNucleosome_iNPS_Heart_WT_noMT.bed .
 
 # Nucleosome sites unique to brain
 bedtools intersect -a ConsensusNucleosome_iNPS_Brain_WT_noMT.bed -b ConsensusNucleosome_iNPS_Heart_WT_noMT.bed -v -f 0.8 -r >  Nuclesome_sites_unique_to_brain_wt.bed
@@ -136,19 +125,11 @@ bedtools intersect -a ConsensusNucleosome_iNPS_Heart_WT_noMT.bed -b ConsensusNuc
 
 #### Nucleosome occupancy WT vs KO in Brain
 
-For Figure 4e we actually used DANPOS. Here is were I did it,
-
-Prepare differential nucleosome coverage in brain, in `CRUK`.
-
-Notice that I had to copy the `bams` over and place the
-replicates in different folders, sharing the same name but with 1 and 2
-at the end of the file basename. I was getting errors if I would
-just point to where they were. Takes a few hours to ru.
+Prepare differential nucleosome coverage in brain, using DANPOS. Please note that 
+the paths are specific to the machine in which the analysis was done.
 
 ```bash
 #! /usr/bin/env bash
-
-cd /scratcha/sblab/portel01/project/euni_5fc/danpos_brain/compare_wt_ko
 
 wt_1="../../mnase_bam/ear030_HindbrainA1.150618.ncbi37.bam"
 wt_2="../../mnase_bam/ear032_HindbrainF1.150618.ncbi37.bam"
@@ -175,39 +156,15 @@ sbatch -J DPOS --wrap "~/programs/danpos-2.2.2/danpos.py dpos bams_ko/:bams_wt/ 
 ```
 
 Extract the summit position and location of reference positions. We will
-get one list for locations that are new to heart, and does that
+get one list for locations that are new to heart, and those that
 are new for brain.
-
-```bash
-cd /scratcha/sblab/portel01/project/euni_5fc/danpos_brain_vs_heart/wt/result
-```
-
-###### Old analysis bellow
-
-Then use the differential nucleosome.
-
-```bash
-# read from danpos, prepare a BED file with only the log2FC as
-~/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/nuc_diff_brain/exp_diff_nucpos
-```
-
-```bash
-# Connect the diff_nuc bed files with DE brain WT/KO
-/Users/guillem/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/RNA_seq/mm_enhancers/Prestige_preprocessed
-
-# More precisely this jupyter notebook: mean_expression_vs_5fC_diffnuc.ipynb
-```
 
 #### Nucleosome occupancy WT vs KO in Heart
 
-For completness, I also analysied the differential nucleosome coverage
-between WT and KO in Heart. We might need it anyway once we have the
-differential gene expression.
+Using `DANPOS`, same as for brain above (*mutatis mutandis*)
 
 ```bash
 #! /usr/bin/env bash
-
-cd /scratcha/sblab/portel01/project/euni_5fc/danpos_heart/compare_wt_ko
 
 wt_1="/scratcha/sblab/portel01/project/euni_5fc/heart_bam/ear038_K7_heart.SLX-10219.ncbi37.bam"
 wt_2="/scratcha/sblab/portel01/project/euni_5fc/heart_bam/ear039_J9_heart.SLX-10219.ncbi37.bam"
@@ -233,14 +190,11 @@ cp ${ko_2} bams_ko/ko_rep2.bam
 sbatch -J DPOS --wrap "~/programs/danpos-2.2.2/danpos.py dpos bams_ko/:bams_wt/  -m 1 && rm -fr bams_wt bams_ko"
 ```
 
-#### Nucleosome occupancy (DANPOS) WT Brain vs KO Heart
+#### Nucleosome occupancy WT Brain vs KO Heart
 
-Run DANPOS on those, to see the difference in nucleosome occupancy
-
-`CRUK`
+Using `DANPOS`, same as above (*mutatis mutandis*)
 
 ```bash
-cd /scratcha/sblab/portel01/project/euni_5fc/danpos_brain_vs_heart/wt/
 
 brain_wt_1="/scratcha/sblab/portel01/project/euni_5fc/mnase_bam/ear030_HindbrainA1.150618.ncbi37.bam"
 brain_wt_2="/scratcha/sblab/portel01/project/euni_5fc/mnase_bam/ear032_HindbrainF1.150618.ncbi37.bam"
@@ -268,8 +222,5 @@ sbatch -J DPOS --wrap "~/programs/danpos-2.2.2/danpos.py dpos bams_brain/:bams_h
 
 ### Enhancers-DE in 5fC-related nucleosomes Heart vs brain
 
-The analysis is in `Guillem laptop`. The readme is [here](gene_expression_5fC_nuc_heart_and_brain.md)
+The instructions/workflow are [here](gene_expression_5fC_nuc_heart_and_brain.md)
 
-```bash
-cd /Users/guillem/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/nucleosome_diff_positions_vs_5fC_heart_vs_brain
-```
