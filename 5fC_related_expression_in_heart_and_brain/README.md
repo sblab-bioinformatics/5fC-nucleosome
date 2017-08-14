@@ -1,5 +1,7 @@
 ## Compare 5fC / Nucleosome occupancy across heart/brain tissues
 
+The following steps are required:
+
 1.  Intersecting 5fC Heart with histone marks and CpGi
 2.  Unique sites 5fC to Heart and Brain
 3.  Nucleosomes occupancy in Heart vs Brain considering 5fC
@@ -7,17 +9,6 @@
 
 ### Intersecting 5fC Heart with histone marks and CpGi
 
-This is analogous to [preparing_interesected_bed_files.md](../20170404_repeat_analysis_unique_to_WT/preparing_interesected_bed_files.md)
-
-Histone marks were obtained from ENCODE with the following accession codes, 
-
-| Histone mark | UCSC/ENCODE accession code |
-| --- | --- |
-| H3K27ac |  ENCFF954URD |
-| H3K4me1 | ENCFF737FNO |
-| H3K4me3 | ENCFF678FCR |
-| H3K36me3 | ENCFF439XWM |
-| H3K27me3 | ENCFF701UXU |
 
 `CRUK-clust1`
 
@@ -100,59 +91,29 @@ $path_brain_data/grm070_TDG_WT_Q3_hindbrain.clean_peaks.narrowPeak.gz \
 bedtools intersect -a 5fC_consensus_WT.bed.gz -b 5fC_heart_i9_WT.bed.gz -v  | gzip > 5fC_unique_to_brain.bed.gz
 
 
-# commont mnase sites
+# common mnase sites
 bedtools intersect -a heart_mnase_wt_j9.bed.gz -b heart_mnase_wt_kt.bed.gz -f 0.9 -r -wa -u | gzip  > heart_mnase_consensus_09r.bed.gz
 ```
 
 ### Nucleosomes occupancy in Heart vs Brain considering 5fC
 
-The nucleosome peak calling was done by Sergio using iNPS. See [here](https://github.com/sblab-bioinformatics/projects/blob/master/20151125_5fC_nucleosome/20170516_heart_bw_iNPS/20170516_heart_bw_iNPS.md).
+The nucleosome peak calling was done by using iNPS, see [here](../MNase-seq/README.md)
 
-The analysis is done in `Guillem laptop`.
+[This notebook](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) collects the data and calculates the statistical significance of difference 
+between the two pairs of distributions. 
 
-```bash
-cd  ~/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/nucleosome_density_vs_5fC_heart_vs_brain
-```
 
 ## Gene expression dependent on 5fC/Nucleosome presence Heart vs Brain
 
-There are several steps required. One to actually get the differential expression.
-
-[Gene expression brain](https://github.com/sblab-bioinformatics/projects/tree/master/20151125_5fC_nucleosome/20170411_gene_expression)
-
-[Gene expression heart](https://github.com/sblab-bioinformatics/projects/tree/master/20151125_5fC_nucleosome/20170601_heart_RNAseq)
+There are several steps required. One to actually get the differential expression ([here](../RNA-seq/README.md))
 
 Using the unique-to-heart, unique-to-brain, in combination with presence or
 absence of nucleosomes, we want to relate these sites with enhancers, and
 from there to gene expression differences.
 
-There are two ways to look for differences in nucleosome:
-
-1.  iNPS --> look at sites with/without nucleosomes
-2.  DANPOS --> look at differences in "occupancy" in common regions, using log2FC
 
 ## Gene expression Brain vs Heart
 
-In `CRUK`, copy the htsecounts from each RNA-seq and run `htseq_matrix.py`
-on all, e.g.
-
-```bash
-mkdir /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_vs_brain_htseqcounts
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_vs_brain_htseqcounts
-cp ../Repeat_brain_expression/htseq/Brain_*.txt .
-cp ../Heart_expression/htseq/Heart_*.txt .
-
-htseq_matrix.py *.htseq.txt -s '\.htseq$' -s '\..*' | grep -v '^__' > htseq_brain_heart_all.matrix
-```
-
-Copy the resulting `htseq_brain_heart_all.matrix` to `Guillem laptop` for
-further analsysis using `edgeR`.
-
-Prepare a new design matrix,
-
-```
-
-```
 
 ### New unique sites Brain vs Heart in WT
 
