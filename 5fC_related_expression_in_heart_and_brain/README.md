@@ -1,5 +1,5 @@
 
-# Compare 5fC / Nucleosome occupancy across heart/brain tissues, and it's relation to gene expression
+# Compare 5fC / Nucleosome occupancy across heart/brain tissues, and its relation to gene expression
 
 The following steps are required:
 
@@ -109,9 +109,8 @@ between the two pairs of distributions.
 
 ## Gene expression dependent on 5fC/Nucleosome presence Heart vs Brain
 
-There are several steps required. One to actually get the differential expression ([here](../RNA-seq/README.md))
-
-Using the unique-to-heart, unique-to-brain, in combination with presence or
+There are several steps required, first is to obtain the differential expression (described [here](../RNA-seq/README.md)).
+Next, using the unique-to-heart, unique-to-brain, in combination with presence or
 absence of nucleosomes, we want to relate these sites with enhancers, and
 from there to gene expression differences.
 
