@@ -2,7 +2,7 @@
 
 This section requires the results from these analysis,
 
--   [Differential gene expression](20170703_RNAseq_heart_brain/README.md)
+-   [Differential gene expression](../RNA-seq/README.md)
 -   Nucleosome positioning
 -   5fC data
 
