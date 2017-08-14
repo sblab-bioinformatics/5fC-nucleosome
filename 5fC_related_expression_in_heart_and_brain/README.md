@@ -1,14 +1,17 @@
-## Compare 5fC / Nucleosome occupancy across heart/brain tissues
+
+# Compare 5fC / Nucleosome occupancy across heart/brain tissues, and it's relation to gene expression
 
 The following steps are required:
 
 1.  Intersecting 5fC Heart with histone marks and CpGi
 2.  Unique sites 5fC to Heart and Brain
 3.  Nucleosomes occupancy in Heart vs Brain considering 5fC
-4.  Gene expression dependent on 5fC/Nucleosome presence Heart vs Brain
+
+and finally 
+
+4.  Connect (differential) gene expression with 5fC/Nucleosome presence in enhancer regions for Heart vs Brain 
 
 ### Intersecting 5fC Heart with histone marks and CpGi
-
 
 `CRUK-clust1`
 
@@ -99,7 +102,7 @@ bedtools intersect -a heart_mnase_wt_j9.bed.gz -b heart_mnase_wt_kt.bed.gz -f 0.
 
 The nucleosome peak calling was done by using iNPS, see [here](../MNase-seq/README.md).
 
-This [notebook](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) notebook collects the data and calculates 
+This [notebook](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) collects the data and calculates 
 the statistical significance of difference 
 between the two pairs of distributions. 
 
@@ -221,7 +224,5 @@ cp ${heart_wt_2} bams_heart/heart_wt_rep2.bam
 sbatch -J DPOS --wrap "~/programs/danpos-2.2.2/danpos.py dpos bams_brain/:bams_heart/  -m 1 && rm -fr bams_brain bams_heart"
 ```
 
-### Enhancers-DE in 5fC-related nucleosomes Heart vs brain
-
+##  Differential expression related to enhancers with 5fC-nucleosomes Heart vs brain
 The instructions/workflow are [here](gene_expression_5fC_nuc_heart_and_brain.md)
-
