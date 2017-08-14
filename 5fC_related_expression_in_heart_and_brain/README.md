@@ -98,7 +98,8 @@ bedtools intersect -a heart_mnase_wt_j9.bed.gz -b heart_mnase_wt_kt.bed.gz -f 0.
 ### Nucleosomes occupancy in Heart vs Brain considering 5fC
 
 The nucleosome peak calling was done by using iNPS, see [here](../MNase-seq/README.md).
-[This](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) `jupyter/python` notebook collects the data and calculates 
+
+This [notebook](scripts/nuc_occupancy_vs_5fC_heart_brain.ipynb) notebook collects the data and calculates 
 the statistical significance of difference 
 between the two pairs of distributions. 
 
@@ -111,7 +112,7 @@ Using the unique-to-heart, unique-to-brain, in combination with presence or
 absence of nucleosomes, we want to relate these sites with enhancers, and
 from there to gene expression differences.
 
-### New unique sites Brain vs Heart in WT
+#### New unique sites Brain vs Heart in WT
 
 ```bash
 
