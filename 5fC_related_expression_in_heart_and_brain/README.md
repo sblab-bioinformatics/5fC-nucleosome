@@ -9,7 +9,7 @@ The following steps are required:
 
 and finally 
 
-4.  Connect (differential) gene expression with 5fC/Nucleosome presence in enhancer regions for Heart vs Brain 
+4.  Connect (differential) gene expression with 5fC/Nucleosome presence in enhancer regions for Heart vs Brain. Get me [there](gene_expression_5fC_nuc_heart_and_brain.md)!
 
 ### Intersecting 5fC Heart with histone marks and CpGi
 
