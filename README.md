@@ -10,7 +10,7 @@ Details about the "fundamental" analyses are given in the following sections:
 -   [Reconstitution experiments](Reconstitution_experiments/README.md)
 -   [Histone mark datasets used](Histone_marks_datasets/README.md)
 -   [Polymerase stop assays](Polymerase_stop_assays/README.md)
--   [Computational prediction of nucleosome occupancy]
+-   [Computational prediction of nucleosome occupancy](Comp_prediction_nucleosome_occupancy/README.md)
 
 The following analysis are derived from data generated in the sections above:
 
