@@ -92,7 +92,7 @@ ArgumentParser::ParseResult parseCommandLine(Options &parseOptions, int argc,
                      seqan::ArgParseArgument::INTEGER, "INTEGER"));
   addOption(parser,
             ArgParseOption("smooth_window", "prof_smooth_window",
-                           "The number or bases to use as smoothing window"
+                           "The number or bases to use as smoothing window. "
                            "The van Noort paper suggests 10.",
                            seqan::ArgParseArgument::INTEGER, "INTEGER"));
   addOption(
