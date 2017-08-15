@@ -3,12 +3,8 @@
 This section requires the results from these analysis,
 
 -   [Differential gene expression](../RNA-seq/README.md)
--   Nucleosome positioning
--   5fC data
-
-```bash
-cd ~/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/nucleosome_diff_positions_vs_5fC_heart_vs_brain
-```
+-   [Nucleosome positioning](../MNase-seq/README.md)
+-   [5fC data](../5fC_sites_in_heart_brain_WT_and_TDG_KO)
 
 In general, these are the number of DE genes across tissues/conditions. This
 comes directly from RNA-seq.
@@ -28,7 +24,7 @@ We have processed the data using [this](scripts/WT_vs_TDG_KO_DE_in_heart_and_bra
 
 We have processed the data using [this](scripts/brain_vs_heart_DE_via_RenLab_enhancers.ipynb) notebook.
 
-----
+* * *
 
 Number of overlapping enhancer with 5fC-Nuc / not-5fC-Nuc, not considering gene
 expression.
