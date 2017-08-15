@@ -19,22 +19,19 @@ Based on MD-averaged helical parameters force-constants and averaged values, plu
 
 1. Seqan 2.2.0 (other versions untested, but probably fine)
 2. Eigen 3.3.0 (other versions untested, but probably fine)
-3. OpenMP (but could be removed with loss of functionality)
+3. OpenMP (but could be removed without loss of functionality)
 
 ### Install 
 
-Fixme! 
-```
-git@gitlab.com:guillemportella/periodic_elastic.git
-cd period_elastic
-```
+Clone/download the contents of this repository. 
+Fix the CMakeLists, or the do_cmake_example.sh, to adjust the paths depending on your library location. Call `cmake`, then `make` and you should be set. Drop us an email if you are having trouble.
 
-Fix the CMakeLists depending on your library location. 
-
-In clust1-headnode-1 this shoudl work
+For example, you could do
 
 ```bash
 module load cmake/3.7.1 gcc/6.2.0 BOOST/1.56.0
-cmake3 . -DCMAKE_C_COMPILER=/home/portel01/programs/compilers/gcc-6.3/bin/gcc -DCMAKE_CXX_COMPILER=/home/portel01/programs/compilers/gcc-6.3/bin/g++
+cmake3 . -DCMAKE_C_COMPILER=/path_to_compilers/gcc-6.3/bin/gcc -DCMAKE_CXX_COMPILER=/path_to_compilers/gcc-6.3/bin/g++
+make -j 4 
 ```
+
 
