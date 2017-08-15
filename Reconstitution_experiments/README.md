@@ -8,4 +8,4 @@ TODO --> how did we generate `TDG_KO.Hindbrain.cns4.unique.end.fasta` and the re
 
 ### Computational prediction of nucleosome occupancy
 
-The code used, along with its usage instructions, is described [here](Comp_prediction_nucleosome_occupancy/README.md)
+The code used, along with its usage instructions, is described [here](Comp_prediction_nucleosome_occupancy/)
