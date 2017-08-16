@@ -1,11 +1,8 @@
 # Differential expression brain and heart
 
-Please note that the paths given here are specific to the computer in which the analysis was performed. 
+Please note that if any paths are given, they are specific to the computer in which the analysis was performed.
 
 # RNA-seq heart WT and TDG-KO
-
-Raw data is in
-`/scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_expression`
 
 ## Trimming raw reads
 
@@ -59,19 +56,17 @@ done
 
 ## Alignment
 
-Using `hisat2`. First create a genome index and a splicesites file.
+Using `hisat2`. First create a genome index for mm9 and a splicesites file. 
 
 Create a genome index.
 
 ```bash
-cd /scratcha/sblab/portel01/reference_data/genomes/mus_musculus/mm9/Sequence/Hisat2Index_nochr
 sbatch -J index.log -J hista2index --wrap "hisat2-build -p8 -f ../Chromosomes/10.fa,../Chromosomes/11.fa,../Chromosomes/12.fa,../Chromosomes/13.fa,../Chromosomes/14.fa,../Chromosomes/15.fa,../Chromosomes/16.fa,../Chromosomes/17.fa,../Chromosomes/18.fa,../Chromosomes/19.fa,../Chromosomes/1.fa,../Chromosomes/2.fa,../Chromosomes/3.fa,../Chromosomes/4.fa,../Chromosomes/5.fa,../Chromosomes/6.fa,../Chromosomes/7.fa,../Chromosomes/8.fa,../Chromosomes/9.fa,../Chromosomes/M.fa,../Chromosomes/X.fa,../Chromosomes/Y.fa mm9"
 ```
 
 Create a splicesites, to get better counts.
 
 ```bash
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_expression
 python ~/programs/hisat2-2.0.5/extract_splice_sites.py  /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Mus_musculus.NCBIM37.67.gtf > splicesites.txt
 ```
 
@@ -193,8 +188,6 @@ Sorting should be done by name for `htseq-count`.
 ```bam
 #! /usr/bin/env bash
 
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_expression/bam
-
 names=( "Heart_KO1_TAGCTTGT"
 "Heart_KO2_GGCTACAG"
 "Heart_KO3_CTTGTACT"
@@ -249,7 +242,6 @@ done
 ```
 
 Prepare the count matrix. The script doing the job is [htseq_matrix.py](scripts/htseq_matrix.py).
-Copy the resulting matrix over to `/scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_expression/edgeR_differential_expression`
 
 ```bash
 #! /usr/bin/env bash
@@ -279,7 +271,6 @@ the scripts [intensityFilter.R](scripts/intensityFilter.R), [TPM.R](scripts/TPM.
 and [FPKM.R](script/FPKM.R)
 
 ```bash
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_expression/edgeR_differential_expression
 Rscript run_edgeR.R
 ```
 
@@ -288,8 +279,6 @@ The output files are `expr_diff_heart.KO_vs_WT.edgeR.txt` and `heart_rpkm.txt`.
 * * *
 
 # RNA-seq hindbrain
-
-Raw data is in `/scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Brain_expression`
 
 ## Trimming raw reads
 
@@ -461,7 +450,6 @@ done
 ```
 
 Prepare the count matrix. The script doing the job is [htseq_matrix.py](scripts/htseq_matrix.py).
-Copy the resulting matrix over to `/scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Brain_expression/edgeR_differential_expression`
 
 ```bash
 #! /usr/bin/env bash
@@ -491,7 +479,6 @@ the scripts [intensityFilter.R](scripts/intensityFilter.R), [TPM.R](scripts/TPM.
 and [FPKM.R](script/FPKM.R)
 
 ```bash
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Brain_expression/edgeR_differential_expression
 Rscript run_edgeR.R
 ```
 

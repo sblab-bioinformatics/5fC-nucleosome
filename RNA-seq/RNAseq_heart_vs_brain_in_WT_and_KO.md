@@ -1,19 +1,13 @@
 # Compute the DE between heart and hindbrain tissues, in WT and KO.
 
-Please note that the paths given here are specific to the computer in which the analysis was performed.
-
 Join together the counts from all tissues and conditions,
 
 ```bash
 #! /usr/bin/env bash
-
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_vs_brain_htseqcounts
 htseq_matrix.py *.htseq.txt -s '\.htseq$' -s '\..*' | grep -v '^__' > htseq_brain_heart_all.matrix
-mkdir ../Heart_vs_brain_DE/
-cp htseq_brain_heart_all.matrix ../Heart_vs_brain_DE/
 ```
 
-Run edgeR on the count data. It requires
+Run edgeR on the count data to obtain the differential expression and RPKMs. It requires
 the scripts [intensityFilter.R](scripts/intensityFilter.R), [TPM.R](scripts/TPM.R),
 and [FPKM.R](script/FPKM.R).
 The `design.txt` including both tissues and TDG conditions.
@@ -35,8 +29,6 @@ Heart_WT3_GATCAGCG heart wt
 ```
 
 ```bash
-cd /scratcha/sblab/portel01/project/euni_5fc/RNA_seq/Heart_vs_brain_DE
-
 Rscript run_edgeR_b_h_wt.R
 Rscript run_edgeR_b_h_ko.R
 ```
