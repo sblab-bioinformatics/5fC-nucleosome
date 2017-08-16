@@ -6,39 +6,23 @@ The idea is to compute a probability map of sorts, indicating which bases along 
 
 ## Base-pair--Lys interaction likelyhood
 
-From a set of molecular dynamics trajectories of dinucleosome system, we first split the trajectory into individual nucleosomes, concatenate these individual trajectories, and compute the probability to find
-a contact between a given 
-```bash
- #! /usr/bin/env bash
-
-# Split the trajectories
-./do_split_dinuc.sh &&
-# do the lys-bp analysis
-./do_bp_analysis.sh &&
-# plot the results
-./do_plot_bp_lys_analysis.sh
-```
+From a set of molecular dynamics trajectories of dinucleosome system, we first split the trajectory into individual nucleosomes, concatenate these individual trajectories, and compute the probability to find potential 5fC-lys contacts.
 
 ### Prepare the MD trajectories
 
 The all-atoms simulations are akin to those published in Collepardo et al. JACS 2015 paper. The manuscript containts all the relevant information to replicate these simulations. 
 
-I selected all the WT 99sb-star_ildn trajectories. I concatenated all the dinucleosome simulations (internuc distance 6 and 7.5, replicates 1 and 2) into one large trajectory. In one case I had to remove the ions, as they were still there. The trajectories had been previously imaged. I used `-skip 10` to reduce further the number of frames. I moved the concatenated trajectory to my local drive, and I removed the v-site atoms using an index file I already had lying around in my backup drive (in the folder where I prepared the movie for Tamar Schlick). I removed all the intermediate `pdb` and `xtc` files, and just left the index file to clean v-sites, and the cleaned trajectoy and pdb file here,
+I concatenated all the dinucleosome simulations (internuc distance 6 and 7.5, replicates 1 and 2) into one large trajectory. In one case I had to remove the ions, as they were still there. The trajectories had been previously imaged. I used `-skip 10` to reduce further the number of frames.
 
-`/Users/guillem/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/polymerase_stop/modelling/concat_traj_rosana`
+To reduce the overhead of writing a code to deal with dinucleosomes, and since the sequences are exactly the same, I will split the trajectory into two nucleosomes.
 
-At the moment it is easier to use the dinucleosome simulations. To reduce the overhead of writing a code to deal with dinucleosomes, and since the sequences are exactly the same, I will split the trajectory into two nucleosomes.
-
-Indexing \\& splitting in `do_split_dinuc.sh`.
 
 ```bash
 #! /usr/bin/env bash
 
 source ~/work/soft/GMX_2016_2/bin/GMXRC.bash
 
-cd /Users/guillem/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/polymerase_stop/modelling
-
-traj_folder=`pwd`/'concat_traj_rosana'
+traj_folder=`pwd`/'concat_traj'
 pdb_file=${traj_folder}/'init_novsites_dinuc.pdb'
 xtc_file=${traj_folder}/'all_concat_novistes_dinuc.xtc'
 
@@ -71,7 +55,7 @@ rm -fr \#*
 
 ### Finding contact distances
 
-I wrote a [python code](https://gitlab.com/guillemportella/20170227_polymerase_stop_modelling_structure) to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, I centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then I keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
+I wrote a [python code](scripts/build_bp_lys_contacts.py) to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, I centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then I keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
 
 ```python
 %matplotlib inline
@@ -82,13 +66,9 @@ import numpy as np
 def switch2(b, d0, x):
     return 1.0 / (1 + math.exp(b*(x - 1.5*d0)))
 
-def crazy(a, b, d0, r0, r):
-    return (1+(2**(a/b)-1)*((r-d0)/r0)**a)**(-b/a)
-
 p = np.arange(0, 2, 0.01)
 s = np.zeros(200)
 for i in range(200):
-    #s[i] = crazy(8,1, 0.1, 1.5, float(i)/100.0)
     s[i] = switch2(10, 0.5, float(i)/100)
 
 fig = plt.figure()
