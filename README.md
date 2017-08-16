@@ -8,10 +8,11 @@ Details about the "fundamental" analyses are given in the following sections:
 -   [MNase-seq](MNase-seq/README.md)
 -   [RNA-seq](RNA-seq/README.md)
 -   [Reconstitution experiments](Reconstitution_experiments/README.md)
--   [Histone mark datasets used](Histone_marks_datasets/README.md)
+-   [Histone mark and CpG island datasets used](Histone_marks_datasets_and_CpG_islands/README.md)
 -   [Polymerase stop assays](Polymerase_stop_assays/README.md)
 
 The following analysis are derived from data generated in the sections above:
 
 -   [5fC sites in heart/brain for WT and TDG-KO](5fC_sites_in_heart_brain_WT_and_TDG_KO/README.md)
--   [5fC-related gene expression in mouse embrio heart and brain (figures 3 and 4 in the manuscript)](5fC_related_expression_in_heart_and_brain/README.md)
+-   [5fC-related gene expression in mouse embrio heart and brain](5fC_related_expression_in_heart_and_brain/README.md)
+-   [Nucleosome enrichment in H3K27ac, H3K4me1 and CpG island, with or without 5fC.](Nuc_coverage_genomic_features/README.md)
