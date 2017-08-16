@@ -12,9 +12,9 @@ From a set of molecular dynamics trajectories of dinucleosome system, we first s
 
 The all-atoms simulations are akin to those published in Collepardo et al. JACS 2015 paper. The manuscript containts all the relevant information to replicate these simulations. 
 
-I concatenated all the dinucleosome simulations (internuc distance 6 and 7.5, replicates 1 and 2) into one large trajectory. In one case I had to remove the ions, as they were still there. The trajectories had been previously imaged. I used `-skip 10` to reduce further the number of frames.
+We concatenated all the dinucleosome simulations into one large trajector, removing ions and water. The trajectories had been previously imaged. We used `-skip 10` to reduce further the number of frames.
 
-To reduce the overhead of writing a code to deal with dinucleosomes, and since the sequences are exactly the same, I will split the trajectory into two nucleosomes.
+To reduce the overhead of writing a code to deal with dinucleosomes, and since the sequences are exactly the same, we will split the trajectory into two nucleosomes and then concatenate them into one.
 
 
 ```bash
@@ -55,7 +55,7 @@ rm -fr \#*
 
 ### Finding contact distances
 
-We wrote a python code,`build_bp_lys_contacts.py` [here](scripts/build_bp_lys_contacts.py), to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, I centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then I keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
+We wrote a python code,`build_bp_lys_contacts.py` [here](scripts/build_bp_lys_contacts.py), to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, we centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then we keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
 
 ```python
 %matplotlib inline
