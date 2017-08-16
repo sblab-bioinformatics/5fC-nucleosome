@@ -34,7 +34,7 @@ lys_chain = ["CG", "HG3", "HG2", "CD", "HD3", "HD2",
              "CE", "HE3", "HE2", "NZ", "HZ1", "HZ2", "HZ3"]
 
 # conversion from histo_tails to a list containing [,) pairs, where
-# even indeces are entry points, and odd indeces are exit point
+# even indices are entry points, and odd indices are exit point
 # http://stackoverflow.com/questions/23639361/fast-checking-of-ranges-in-python
 hist_tail_boundaries = [295, 330, 439, 445, 523, 540,
                         660, 747, 782, 818, 917, 940, 1019, 1035, 1147, 1176]

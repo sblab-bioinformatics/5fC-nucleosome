@@ -20,7 +20,7 @@ To reduce the overhead of writing a code to deal with dinucleosomes, and since t
 ```bash
 #! /usr/bin/env bash
 
-source ~/work/soft/GMX_2016_2/bin/GMXRC.bash
+source ~/GMX_2016_2/bin/GMXRC.bash
 
 traj_folder=`pwd`/'concat_traj'
 pdb_file=${traj_folder}/'init_novsites_dinuc.pdb'
@@ -55,7 +55,7 @@ rm -fr \#*
 
 ### Finding contact distances
 
-I wrote a [python code](scripts/build_bp_lys_contacts.py) to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, I centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then I keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
+We wrote a python code,`build_bp_lys_contacts.py` [here](scripts/build_bp_lys_contacts.py), to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, I centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then I keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
 
 ```python
 %matplotlib inline
@@ -84,16 +84,10 @@ plt.savefig("switch_function.png")
 
 The keys of the dictionary are the residue number of each lysine, and the values are the time-averaged contacts. The code also computes the phase profile along the nucleosome, to get and indicator of which groove is facing the core. The way the phase is defined now is the angle (in rad) between a vector pointing outwards from the center of mass of a base pair \[actually the N1 of the pyr] towards the minor groove. So a small "phase" value associated with a given base pair indicates that the minor groove is facing the histone core.
 
-A second code (`read_bp_list_and_plot.py`) takes care to plot the data contained as a pickled file written by `build_bp_lys_contacts.py`.
+A second code (`read_bp_list_and_plot.py`, [here](scripts/read_bp_list_and_plot.py)) takes care to plot the data contained as a pickled file written by `build_bp_lys_contacts.py`.
 
-The codes are here, and should have a decent documentation inside.
 
-```bash
-/Users/guillem/work/Projects/Euni_fc/5fc_nucleosome/polymerase_stop/modelling/build_bp_lys_contacts.py
-/Users/guillem/work/Projects/Euni_fc/5fc_nucleosome/polymerase_stop/modelling/read_bp_list_and_plot.py
-```
-
-With `./XXX.py -h` you get the options. A typical executions would go like this,
+With `./XXX.py -h` you get the options. The source code is relatively well documented. A typical executions would go like this,
 
 ```bash
 #! /usr/bin/env bash
@@ -109,42 +103,29 @@ With `./XXX.py -h` you get the options. A typical executions would go like this,
 
 We now have both strands, plus controls. The control in case of 5fC crosslinked against the histones is the experiment done without the crosslinking.
 
-In the new [datasets](data), there are two replicates for 5fC ("fC6" and "fC14"), and two replicates for the control ("ctrl2" and "ctrl25"). The ideas is to average both replicates for 5fC and control, and compute the log2 or their ratio. Then feed the data together with my previous analysis on the DNA-lys contacts.
-
 Using [do_process_fwd_rev_data.py](scripts/do_process_fwd_rev_data.py). In my laptop,
 
 ```bash
-cd ~/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/polymerase_stop_modelling/modelling
 
 exe_f=~/work/repos/sblab_projects/projects/20151125_5fC_nucleosome/20170130_polymerase_stop_modelling/scripts/do_process_fwd_rev_data.py
 ${exe_f} -fwd 20170315_table_forward.txt -rev 20170315_table_reverse.txt -o poly_stop
 
 # add the data to the plot
 
-exe_f=~/work/repos/sblab_projects/projects/20151125_5fC_nucleosome/20170130_polymerase_stop_modelling/scripts/read_bp_list_and_plot.py
+exe_f=read_bp_list_and_plot.py
 #no tails
 ${exe_f} -s first_nuc_res.pdb -lys list_bp_lys_dict_notails.pkl  -phase bp_phase_profile.txt -exp poly_stop_fwd.dat poly_stop_rev.dat -o lys_contact_map_notails
 # tails
 ${exe_f} -s first_nuc_res.pdb -lys list_bp_lys_dict_tails.pkl  -phase bp_phase_profile.txt -o lys_contact_map_tails -exp poly_stop_fwd.dat poly_stop_rev.dat
 ```
 
-Without the histone tails,
-
-![no_tails](pictures/lys_contact_map_notails.png)
-
-With the histone tails,
-
-![tails](pictures/lys_contact_map_tails.png)
-
-**Note that the y-axis is actually a different measurement in each cases, this is just for exploratory visualization.**
 
 # Overlap analysis between polstop data and simulations
 
 Used [read_bp_list_process_likelihood.py](scripts/read_bp_list_process_likelihood.py), e.g.,
 
 ```bash
-exe_f=~/work/repos/sblab_projects/projects/20151125_5fC_nucleosome/20170130_polymerase_stop_modelling/scripts/read_bp_list_process_likelihood.py
-cd ~/Dropbox/work/Projects/Euni_fc/5fc_nucleosome/polymerase_stop_modelling/modelling
+exe_f=read_bp_list_process_likelihood.py
 ${exe_f} -s first_nuc_res.pdb -lys list_bp_lys_dict_tails.pkl  -phase bp_phase_profile.txt -exp poly_stop_fwd.dat poly_stop_rev.dat  -seq widom601.fa
 ```
 
@@ -173,33 +154,3 @@ Combining modelling high-probabilty regions with polstop high-stop regions (prod
 | 238 (91)  | 357 (0.41)  | 0.03         | H3_1    | -           |
 | 264 (117) | 660 (0.14)  | 0.16         | H2b_1   | Yes         |
 
-With only polstop data,
-
-| DNA res.  | Near K res. | Phase [-1,1] | Histone | Hist. tail? |
-| --------- | ----------- | ------------ | ------- | ----------- |
-| 35        | 1153 (0.04) | -0.37        | H2b_2   | Yes         |
-| 41        | 505 (0.35)  | 0.71         | H4_1    | -           |
-| 44        | 1153 (0.05) | 0.18         | H2b_2   | Yes         |
-| 55        | 448 (0.04)  | 0.03         | H4_1    | -           |
-| 63        | 459 (0.58)  | 0.88         | H4_1    | -           |
-| 69        | 1136 (0.12) | -0.51        | H2a_2   | -           |
-| 77        | 794 (0.13)  | -0.50        | H3_2    | Yes         |
-| 83        | 946 (0.11)  | 0.90         | H4_2    | -           |
-| 91        | 844 (0.45)  | 0.03         | H3_2    | -           |
-| 95        | 931 (0.04)  | 0.69         | H4_2    | Yes         |
-| 106       | 666 (0.45)  | 0.39         | H2b_1   | Yes         |
-| 115       | 1030 (0.06) | 0.84         | H2a_2   | Yes         |
-| 118       | 1030 (0.44) | -0.31        | H2a_2   | Yes         |
-| 122       | 1169 (0.20) | -0.15        | H2b_2   | Yes         |
-| 129       | 1153 (0.10) | -0.50        | H2b_2   | Yes         |
-| 157 (10)  | 1091 (0.10) | 0.68         | H2a_2   | -           |
-| 163 (16)  | 1153 (0.13) | -0.72        | H2b_2   | Yes         |
-| 169 (22)  | 1169 (0.03) | 0.64         | H2b_2   | Yes         |
-| 193 (46)  | 683 (0.29)  | -0.83        | H2b_1   | Yes         |
-| 216 (69)  | 648 (0.14)  | -0.51        | H2a_1   | -           |
-| 220 (73)  | 408 (0.55)  | 0.95         | H3_1    | -           |
-| 230 (83)  | 459 (0.12)  | 0.90         | H4_1    | -           |
-| 238 (91)  | 357 (0.41)  | 0.03         | H3_1    | -           |
-| 253 (106) | 1166 (0.04) | 0.39         | H2b_2   | Yes         |
-| 257 (110) | 780 (0.02)  | -0.75        | H2b_1   | -           |
-| 264 (117) | 660 (0.14)  | 0.16         | H2b_1   | Yes         |
