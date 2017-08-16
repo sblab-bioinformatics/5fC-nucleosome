@@ -103,7 +103,7 @@ With `./XXX.py -h` you get the options. The source code is relatively well docum
 
 We now have both strands, plus controls. The control in case of 5fC crosslinked against the histones is the experiment done without the crosslinking.
 
-Using [do_process_fwd_rev_data.py](scripts/do_process_fwd_rev_data.py). In my laptop,
+Using [do_process_fwd_rev_data.py](scripts/do_process_fwd_rev_data.py).
 
 ```bash
 
