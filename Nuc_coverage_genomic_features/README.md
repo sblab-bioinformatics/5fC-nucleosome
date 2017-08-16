@@ -6,6 +6,8 @@ containing 5fC, as well as those without.
 
 ### Intersect histone marks / CpG islands 
 
+The `bed` files that we used here come from [here](../5fC_sites_in_heart_brain_WT_and_TDG_KO)
+
 Notice that the paths are particular to the machine.
 
 ```bash
@@ -85,14 +87,41 @@ do
 
     done
 done
-
 ```
 
-###  MNase-seq read around CpG islands
+###  MNase-seq read around histone marks and CpG islands
 
-Using Deeptools with the previously generated `bed` files, and the `bigwig` files 
-from [MNase-seq](../MNase-seq/) alignment. 
+Using Deeptools with the previously generated `bed` files, and the `bigwig` files
+from [MNase-seq](../MNase-seq/) alignment.
 
+For H3K27ac, 
+
+``` bash
+computeMatrix reference-point  -R H3K27ac_5fC_consensus_WT.bed.gz H3K27ac_no5fC_consensus_WT.bed.gz \        
+-S ear030_HindbrainA1.150618.ncbi37.bw ear031_HindbrainC1.150618.ncbi37.bw ear032_HindbrainF1.150618.ncbi37.bw \
+-out H3K27ac_WT_referencepoint.mat.gz  --referencePoint "center"  -b 1000 -a 1000  \
+-bs 10 --skipZeros --sortRegions "no" 
+-p "max"  && \
+plotProfile  --matrixFile H3K27ac_WT_referencepoint.mat.gz -out H3K27ac_WT_referencepoint.pdf  \
+--outFileNameData H3K27ac_WT_referencepoint.dat   \
+-plotType "se"         --colors red red red  --samplesLabel WT_A1 WT_C1 WT_F1 \
+--regionsLabel "H3K27ac" "H3K27ac_no5fC" -y "RPKM"  --perGroup
+```
+
+For H3K4me1, 
+```bash
+computeMatrix reference-point  -R H3K4me1_5fC_consensus_WT.bed.gz H3K4me1_no5fC_consensus_WT.bed.gz \
+-S ear030_HindbrainA1.150618.ncbi37.bw ear031_HindbrainC1.150618.ncbi37.bw ear032_HindbrainF1.150618.ncbi37.bw \
+-out H3K4me1_WT_referencepoint.mat.gz  --referencePoint "center" -b 1000 -a 1000 -bs 10 --skipZeros \
+--sortRegions "no"  -p "max"  && \
+plotProfile   --matrixFile H3K4me1_WT_referencepoint.mat.gz  -out H3K4me1_WT_referencepoint.pdf \
+--outFileNameData H3K4me1_WT_referencepoint.dat  \
+--plotType "se"    --colors red red red  --samplesLabel WT_A1 WT_C1 WT_F1 \
+--regionsLabel "H3K4me1" "H3K4me1_no5fC"  -y "RPKM" --perGroup
+```
+
+
+For the CpG islands, 
 
 ```bash
 computeMatrix reference-point   -R CpGi_5fC_consensus_WT.bed.gz CpGi_no5fC_consensus_WT.bed.gz \
@@ -110,4 +139,4 @@ plotProfile --matrixFile CpGi_WT_referencepoint.mat.gz  -out CpGi_WT_referencepo
 -y "RPKM"  --perGroup
 ```
 
-Finally plot `CpGi_WT_referencepoint.dat`, e.g. like [this](scripts/plot_5fc_no5fc_in_one.ipynb)
+Finally plot one could plot the different output files (`H3K27ac_WT_referencepoint.dat`, `H3K4me1_WT_referencepoint.dat`, and `CpGi_WT_referencepoint.dat`) like [this](scripts/plot_mnase_profiles_deeptools.ipynb)
