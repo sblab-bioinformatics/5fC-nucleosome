@@ -156,7 +156,8 @@ Combining modelling high-probabilty regions with polstop high-stop regions (prod
 
 Using only polymerase stop data, 
 
-With only polstop
+With only polstop (all of them, not only the most significant 
+in terms of logFC(5fC/control).
 
 | DNA res. | Near K res. |  Phase [-1,1] | Histone | Hist. tail? |
 | -------- | -------------- |  ----- | -------| ------- |
