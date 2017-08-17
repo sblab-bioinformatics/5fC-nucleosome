@@ -154,9 +154,8 @@ Combining modelling high-probabilty regions with polstop high-stop regions (prod
 | 242 (95) | 1153 (0.08) | 0.69 | H2b_2 | Yes |
 | 253 (106) | 1166 (0.04) | 0.39 | H2b_2 | Yes |
 
-Using only polymerase stop data, 
 
-With only polstop (all of them, not only the most significant 
+Using only polymerase stop data (all of them, not only the most significant 
 in terms of logFC(5fC/control).
 
 | DNA res. | Near K res. |  Phase [-1,1] | Histone | Hist. tail? |
