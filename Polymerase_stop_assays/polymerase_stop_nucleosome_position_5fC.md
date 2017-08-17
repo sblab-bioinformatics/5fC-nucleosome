@@ -119,6 +119,7 @@ ${exe_f} -s first_nuc_res.pdb -lys list_bp_lys_dict_notails.pkl  -phase bp_phase
 ${exe_f} -s first_nuc_res.pdb -lys list_bp_lys_dict_tails.pkl  -phase bp_phase_profile.txt -o lys_contact_map_tails -exp poly_stop_fwd.dat poly_stop_rev.dat
 ```
 
+We used this [notebook](scripts/plot_polstop_profile.ipynb) to plot the data. 
 
 # Overlap analysis between polstop data and simulations
 
