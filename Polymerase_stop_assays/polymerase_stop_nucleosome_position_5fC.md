@@ -84,7 +84,7 @@ plt.savefig("switch_function.png")
 
 The keys of the dictionary are the residue number of each lysine, and the values are the time-averaged contacts. The code also computes the phase profile along the nucleosome, to get and indicator of which groove is facing the core. The way the phase is defined now is the angle (in rad) between a vector pointing outwards from the center of mass of a base pair \[actually the N1 of the pyr] towards the minor groove. So a small "phase" value associated with a given base pair indicates that the minor groove is facing the histone core.
 
-A second code (`read_bp_list_and_plot.py`, [here](scripts/read_bp_list_and_plot.py)) takes care to plot the data contained as a pickled file written by `build_bp_lys_contacts.py`.
+A second code ([`read_bp_list_and_plot.py`](scripts/read_bp_list_and_plot.py), you'll also need [this](scripts/nucleic_protein_db.py)) takes care to plot the data contained as a pickled file written by `build_bp_lys_contacts.py`.
 
 
 With `./XXX.py -h` you get the options. The source code is relatively well documented. A typical executions would go like this,
