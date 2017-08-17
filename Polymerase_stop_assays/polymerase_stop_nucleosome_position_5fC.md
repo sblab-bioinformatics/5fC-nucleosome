@@ -55,7 +55,7 @@ rm -fr \#*
 
 ### Finding contact distances
 
-We wrote a python code,`build_bp_lys_contacts.py` [here](scripts/build_bp_lys_contacts.py), to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, we centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then we keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
+We wrote a python code,[`build_bp_lys_contacts.py`](scripts/build_bp_lys_contacts.py), you'll also need [this](scripts/nucleic_protein_db.py)), to compute the closest lysines to each possible nucleotide in a nucleosome. Check the header of the `.py` files for dependencies. From the MD trajectory above, we centered the distance calculation to the position that the 5-formyl group would adopt, given that that residue was a C. Then we keep a list of dictionaries for each base pair position (1 to 147 for both strands). Each element in the list is a dictionary that stores the time-averaged contact with those lysines that are less than a cutoff (set to 1.2nm). The contacts are made continuous via a switching function (saturation-like curve) such that anything below 0.5nm gives a value of 1, and anything above that decays to 0 (at ~1 nm is almost zero).
 
 ```python
 %matplotlib inline
@@ -84,7 +84,7 @@ plt.savefig("switch_function.png")
 
 The keys of the dictionary are the residue number of each lysine, and the values are the time-averaged contacts. The code also computes the phase profile along the nucleosome, to get and indicator of which groove is facing the core. The way the phase is defined now is the angle (in rad) between a vector pointing outwards from the center of mass of a base pair \[actually the N1 of the pyr] towards the minor groove. So a small "phase" value associated with a given base pair indicates that the minor groove is facing the histone core.
 
-A second code ([`read_bp_list_and_plot.py`](scripts/read_bp_list_and_plot.py), you'll also need [this](scripts/nucleic_protein_db.py)) takes care to plot the data contained as a pickled file written by `build_bp_lys_contacts.py`.
+A second code ([`read_bp_list_and_plot.py`](scripts/read_bp_list_and_plot.py)) takes care to plot the data contained as a pickled file written by `build_bp_lys_contacts.py`.
 
 
 With `./XXX.py -h` you get the options. The source code is relatively well documented. A typical executions would go like this,
