@@ -420,8 +420,8 @@ def do_find_candidates(lys_dict, signal, phase):
     results = []
     for i, peak_strand in enumerate(peaks):
         for j, p in enumerate(peak_strand):
-            start = p - 3
-            end = p + 4
+            start = p - 4
+            end = p + 5
             positions = np.array([k for k, ltr in enumerate(
                 sequence[start:end]) if ltr == "C"])
             if positions.any():
@@ -464,7 +464,7 @@ def print_table(results):
                 format(l[0], l[1][0], l[1][1], l[3], who, tail)
         else:
             print "| {:d} ({:d}) | {:d} ({:3.2f}) | {:3.2f} | {:s} | {:s} | ".\
-                format(l[0], l[0] - NUC_LEN, l[1][0], l[1][1], l[3], who, tail)
+                format(l[0], 2 * NUC_LEN -l[0], l[1][0], l[1][1], l[3], who, tail)
 
 
 def print_pymol(results):
