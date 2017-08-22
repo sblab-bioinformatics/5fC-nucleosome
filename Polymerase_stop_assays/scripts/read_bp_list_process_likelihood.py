@@ -461,10 +461,10 @@ def print_table(results):
 
         if l[0] < NUC_LEN:
             print "| {:d} | {:d} ({:3.2f}) | {:3.2f} | {:s} | {:s} | ".\
-                format(l[0], l[1][0], l[1][1], l[3], who, tail)
+                format(l[0], l[1][0] + 1, l[1][1], l[3], who, tail)
         else:
             print "| {:d} ({:d}) | {:d} ({:3.2f}) | {:3.2f} | {:s} | {:s} | ".\
-                format(l[0], 2 * NUC_LEN -l[0], l[1][0], l[1][1], l[3], who, tail)
+                format(l[0], 2 * NUC_LEN -l[0], l[1][0] + 1, l[1][1], l[3], who, tail)
 
 
 def print_pymol(results):
