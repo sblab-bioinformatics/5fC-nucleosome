@@ -6,7 +6,9 @@
 - [bwa v0.7.12-r1044](http://bio-bwa.sourceforge.net/)
 - [samtools v1.2](http://samtools.sourceforge.net/)
 - [picard v1.138](https://broadinstitute.github.io/picard/)
+- [python v3.5](https://www.python.org/)
 - [bedtools v2.25.0](http://bedtools.readthedocs.io/en/latest/)
+- common unix tools (e.g. awk, sort and uniq)
 
 
 ## Processing
@@ -52,7 +54,17 @@ java -Xmx2G -jar picard.jar CollectInsertSizeMetrics I=input.bam O=InsertSize.tx
 
 ### [iNPS](http://www.picb.ac.cn/hanlab/iNPS.html)
 
-iNPS requires `.bed` files as input. First convert processed `.bam` files above into `.bed` fortmat. iNPS requires python3.
+iNPS requires `python3` and also that processed `.bam` files above are converted into `.bed` format for input. First, duplicate reads in processed `.bam` files were removed using `samtools view`. Second, sort alignments by read name with `samtools sort` and fill in mate coordinates and related flags using `samtools fixmate`. Third, convert resulting `.bam` files into `.bed` with `bamToBed` and process output for appropiate start and end coordinates depending on read and mate.
+
+```bash
+samtools view -u -f 2 -F 1024 input_processed.bam | \
+samtools sort -T $outinps -O bam -@8 -n - | \
+samtools fixmate -O bam - - | \
+bamToBed -bedpe | \
+awk -v OFS='\t' '{if(\$2 < \$5){start=\$2} else {start=\$5} if(\$3 > \$6){end=\$3} else {end=\$6} print \$1, start, end}' | \
+sort -k1,1 -k2,2n -k3,3n > output.bed"
+```
+
 
 
 ### [danpos](https://sites.google.com/site/danposdoc/)
