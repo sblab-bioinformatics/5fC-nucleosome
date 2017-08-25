@@ -55,7 +55,7 @@ java -Xmx2G -jar picard.jar CollectInsertSizeMetrics I=input.bam O=InsertSize.tx
 iNPS requires `.bed` files as input. First convert processed `.bam` files above into `.bed` fortmat. iNPS requires python3.
 
 
-### [danpos]
+### [danpos](https://sites.google.com/site/danposdoc/)
 
 Under construction ...
 
