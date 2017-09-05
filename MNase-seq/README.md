@@ -9,6 +9,7 @@
 - [python v3.5](https://www.python.org/)
 - [bedtools v2.25.0](http://bedtools.readthedocs.io/en/latest/)
 - common unix tools (e.g. awk, sort and uniq)
+- [iNPS_v1.2.2](http://www.picb.ac.cn/hanlab/iNPS.html)
 
 
 ## Processing
@@ -65,20 +66,16 @@ awk -v OFS='\t' '{if(\$2 < \$5){start=\$2} else {start=\$5} if(\$3 > \$6){end=\$
 sort -k1,1 -k2,2n -k3,3n > output.bed"
 ```
 
+Running iNPS:
+
+```bash
+python3.5 iNPS_V1.2.2.py -i input.bed -o ../iNPS/input --s_p=p
+```
+
+where `input.bed` is the output file obtained above and `--s_p=p` indicates paired end sequencing data and `--pe_max=230`.
 
 
 ### [danpos](https://sites.google.com/site/danposdoc/)
 
 Under construction ...
-
-- https://github.com/sblab-bioinformatics/projects/blob/master/20151125_5fC_nucleosome/20161122_mnase/20161122_mnase.md
-- https://github.com/sblab-bioinformatics/projects/blob/master/20151125_5fC_nucleosome/20170516_heart_bw_iNPS/20170516_heart_bw_iNPS.md
-- http://10.20.192.25:3000/projects/20150309-gordon-redbs-mesc/wiki/14-08-2015_MNase-Seq_heart_and_hindbrain_SLX-10219
-
-
-
-## TODO
-
-
-
 
