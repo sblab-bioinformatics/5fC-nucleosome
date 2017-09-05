@@ -42,7 +42,7 @@ Sequencing duplicates were marked using `picard`:
 java -Xmx3G -jar picard.jar MarkDuplicates I=input.bam O=output.bam M=log.markdup.txt
 ```
 
-were `input.bam` is the merged and sorted alignment file, with duplicates marked as `output.bam` and processing log details written to `log.markdup.txt`. Resulting files were indexed using `samtools index`.
+where `input.bam` is the merged and sorted alignment file, with duplicates marked as `output.bam` and processing log details written to `log.markdup.txt`. Resulting files were indexed using `samtools index`.
 
 Details about the insert size were obtained using `picard` too:
 
