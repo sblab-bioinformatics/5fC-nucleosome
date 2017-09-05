@@ -31,7 +31,7 @@ where `$ref` is the fasta reference genome file, and `$fq1` and `$fq2` correspon
 Unmapped, not primary aligned and supplementary reads were filtered from the resulting alignment `.bam` files using `samtools view`. Reads aligning with low mapping quality or aligning to [blacklisted genomic regions](https://sites.google.com/site/anshulkundaje/projects/blacklists) of the `mm9` reference genome were also filtered out.
 
 ```bash
-samtools view -@8 -S -u -F2820 -q 5 -L mm9-whitelist.bed input.bam
+samtools view -@8 -S -u -F2820 -q 5 -L mm9-whitelist.bed input.bam | samtools sort -@8 - output.bam
 ```
 
 where `mm9-whitelist.bed` contains not blacklisted genomic regions and `input.bam` is the alignment file obtained with `bwa mem`. Resulting filtered alignment files were sorted by coordinate using `samtools sort` and files corresponding to different sequencing lanes of the same library were merged using `samtools merge`.
