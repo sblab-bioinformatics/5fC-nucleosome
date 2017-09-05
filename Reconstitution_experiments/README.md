@@ -42,26 +42,15 @@ where `mm9-whitelist.bed` contains not blacklisted genomic regions and `input.ba
 bam clipOverlap --in input.bam --out output.bam --stats --storeOrig XC
 ```
 
-Sequencing duplicates were marked using `picard`:
+In principle we do not need to clip overlapping read pairs because we are not interested in single nucleotide resolution at this stage, however clipping does not affect the downstream analyses anyway. Sequencing duplicates were marked using `picard`:
 
 ```bash
 java -Xmx3G -jar picard.jar MarkDuplicates I=input.bam O=output.bam M=log.markdup.txt
 ```
 
-were `input.bam` is the merged and sorted alignment file, with duplicates marked as `output.bam` and processing log details written to `log.markdup.txt`. Resulting files were indexed using `samtools index`.
-
-Details about the insert size were obtained using `picard` too:
-
-```bash
-java -Xmx2G -jar picard.jar CollectInsertSizeMetrics I=input.bam O=InsertSize.txt H=InsertSize.pdf AS=true VALIDATION_STRINGENCY=SILENT
-```
+where `input.bam` is the merged and sorted alignment file, with duplicates marked as `output.bam` and processing log details written to `log.markdup.txt`. Resulting files were indexed using `samtools index`.
 
 
-
-
-## Generate sequences from 5fC-sites flanking regions
-
-TODO --> how did we generate `TDG_KO.Hindbrain.cns4.unique.end.fasta` and the rest? 
 
 ## Computational prediction of nucleosome occupancy
 
