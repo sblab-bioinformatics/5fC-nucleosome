@@ -10,6 +10,7 @@ Details about the "fundamental" analyses are given in the following sections:
 -   [Reconstitution experiments](Reconstitution_experiments/README.md)
 -   [Histone mark and CpG island datasets used](Histone_marks_datasets_and_CpG_islands/README.md)
 -   [Polymerase stop assays](Polymerase_stop_assays/README.md)
+-   [gDNA with only C, 5mC, 5hmC or 5fC](gDNA_C_mC_hmC_fC/README.md)
 -   [Chip-seq  H3 histone crosslinked to 5fC](h3_invivo_crosslink/h3_invivo_crosslink.md)
 -   [GRO-seq analysis on mESC](GROseq_analysis/Groseq_mESC.md)
 
