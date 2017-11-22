@@ -10,6 +10,7 @@ Details about the "fundamental" analyses are given in the following sections:
 -   [Reconstitution experiments](Reconstitution_experiments/README.md)
 -   [Histone mark and CpG island datasets used](Histone_marks_datasets_and_CpG_islands/README.md)
 -   [Polymerase stop assays](Polymerase_stop_assays/README.md)
+-   [GRO-seq analysis on mESC](GROseq_analysis/Groseq_mESC.md)
 
 The following analysis are derived from data generated in the sections above:
 
