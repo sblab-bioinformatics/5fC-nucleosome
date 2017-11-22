@@ -59,6 +59,8 @@ egrep -v "tx_name"  rpkm_WTNODRB.txt | awk -v "OFS=\t" '($NF > 0.5) {print $3, $
 
 Prepare `bed` files denoting regions of interest for our metagene analysis. The 5fC and 5caC sites were obtained from [Song et al. Cell 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3657391/)
 
+The `h3_invivo_1_peaks_*.narroPeak` files were obtained from our Chip-seq of H3 crosslinked to 5fC, the protocol is described [here](../h3_invivo_crosslink/h3_invivo_crosslink.md).
+
 ```bash
 #! /usr/bin/env bash
 
@@ -69,7 +71,7 @@ fC_mESC=5fC_mESC_kd.bed
 caC_mESC=5caC_mESC_kd.bed
 
 # union H3-Chip-seq 1_2
-cat h3_invivo_1_peaks.narrowPeak h3_invivo_no_inp_2_peaks.narrowPeak  > union_h3_1_2.bed
+cat h3_invivo_1_peaks.narrowPeak h3_invivo_2_peaks.narrowPeak  > union_h3_1_2.bed
 bedtools intersect -a ${bed} -b union_h3_1_2.bed -u | sortBed -i - > ${name_bed}_union_h3_1_3.bed
 # union H3-Chip-seq 1_2  that also overlap with known 5fC sites
 bedtools intersect -a union_h3_1_2.bed -b ${fC_mESC}  -u | sortBed -i - > union_h3_1_2_overlap5fC.bed
