@@ -19,6 +19,7 @@ Described in [this](Groseq_mESC_get_bw.md) document.
 ### Select transcripts for the metagene analysis, and perform the analysis
 
 Selection of transcripts [here](Groseq_mESC_tx_for_analysis.md)
+
 Generation of metagene profiles [here](Groseq_mESC_metagene_profs.md)
 
 ### Plot results
