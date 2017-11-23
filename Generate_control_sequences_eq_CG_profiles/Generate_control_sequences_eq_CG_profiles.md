@@ -81,7 +81,7 @@ _ = pb.BedTool(sloped_rand_cent_5fC_b_ko[w:]).saveas(fname)
 
 ## Code to generate the random regions matching the CG enrichment profile or a reference set of regions
 
-The code is [here](https://gitlab.com/guillemportella/fit_randseq_cg_contents)
+The job is computer intensive, so we wrote a C++ code. The code is [here](https://gitlab.com/guillemportella/fit_randseq_cg_contents).
 
 Run the code in chunks, using the bed files generated above, like this 
 
