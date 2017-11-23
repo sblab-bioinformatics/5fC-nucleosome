@@ -19,4 +19,4 @@ The following analysis are derived from data generated in the sections above:
 -   [5fC sites in heart/brain for WT and TDG-KO](5fC_sites_in_heart_brain_WT_and_TDG_KO/README.md)
 -   [5fC-related gene expression in mouse embrio heart and brain](5fC_related_expression_in_heart_and_brain/README.md)
 -   [Nucleosome enrichment in H3K27ac, H3K4me1 and CpG island, with or without 5fC.](Nuc_coverage_genomic_features/README.md)
--   [Generating random control sequences with the same CG contents profile as the reference.](Generate_control_sequences_eq_CG_profiles/Generate_control_sequences_eq_CG_profiles.md)
+-   [Generating random control sequences with the same CG enrichment profile as the reference.](Generate_control_sequences_eq_CG_profiles/Generate_control_sequences_eq_CG_profiles.md)
