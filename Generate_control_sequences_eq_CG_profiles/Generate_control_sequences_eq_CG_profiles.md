@@ -2,17 +2,13 @@
 
 # Given a set of genomic intervals, generate an control set with the same CG enrichement profile 
 
-The goal is to generate a set of genomic intervals to use as control, i.e. a set  of the same size as the reference set 
-and that does not overlap with it, which has the same CG enrichment profile. The set of genomic regions will be encoded
-as a `bed` file. 
+The goal is to generate a set of genomic intervals to use as control, i.e. a set  of the same size as the reference set and that does not overlap with it, which has the same CG enrichment profile. The set of genomic regions will be encoded as a `bed` file. 
 
-If the number of intervals is large, it's computationaly more treatable to split the files in chunks of regions an
-do the calculations in parallel, merging the control regions at the end. 
+If the number of intervals is large, it's computationaly more treatable to split the files in chunks of regions an do the calculations in parallel, merging the control regions at the end. 
 
-In the following, we use the brain TDG KO 5fC regions as example. We use the set of consensus 5fC sites as reference, and
-the merged (i.e. all detect in the replicates) as sites to avoid when generating the randomized control 
-Other sets (e.g. heart TDG KO) were generated using the same approach. We make sure that all the regions have the same size
-by taking the middle of the 5fC region and adding 2000 bp on either side. 
+In the following, we use the brain TDG KO 5fC regions as example. We use the set of consensus 5fC sites as reference, and the merged (i.e. all detected in the replicates) as sites to avoid when generating the randomized control. We increment the "prohibited" regions
+by adding blacklist of unmappable, repetitive, etc. genomic locations.  
+In our work, other sets (e.g. heart TDG KO) were generated using the same approach. We make sure that all the regions have the same size by taking the middle of the 5fC region and adding 2000 bp on either side. 
 
 ```python
 #! /usr/bin/env python
@@ -33,7 +29,6 @@ def center_regions_bed(bed_file):
         low = int(0.5 * (b.end + b.start))
         up = int(0.5 * (b.end + b.start))
         string = ("\t").join([str(b.chrom), str(low), str(up)])
-        #print(b.chrom, int(0.5*(b.end + b.start)),int(0.5*(b.end + b.start))+1 )
         long_string.append(string)
     bed_string = ("\n").join(long_string)
     bed_center = pb.BedTool(bed_string, from_string=True)
@@ -99,15 +94,17 @@ if [ "$#" -ne 1 ]; then
 fi
 
 max_value=$1
-
 genome="PATH_TO_genome.fa"
 
 for c in `seq 0 ${max_number}`
 do
-bed_ref=ref_beds/5fC_slop_${c}.bed
-bed_rand=rand_beds/rand_non5fC_slop_${c}.bed
-sbatch --wrap "cg_content -i ${genome} -b ${bed_ref} -br ${bed_rand} -max_iter 5000000 -cutoff 0.00010 -bo rand_non5fC_fit_CG_${c}.bed -v"
+    bed_ref=ref_beds/5fC_slop_${c}.bed
+    bed_rand=rand_beds/rand_non5fC_slop_${c}.bed
+    sbatch --wrap "cg_content -i ${genome} -b ${bed_ref} -br ${bed_rand} -max_iter 5000000 -cutoff 0.00010 -bo rand_non5fC_fit_CG_${c}.bed -v"
 
 done 
 ```
+
+After executions have finished (it takes a long time if you have a large number of reference sites) make sure you reached the cutoff value, then 
+concatenate all the rand_fit_CG files into one. 
 
