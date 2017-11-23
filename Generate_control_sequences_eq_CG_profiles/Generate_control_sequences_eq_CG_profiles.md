@@ -1,6 +1,6 @@
 
 
-# Given a set of genomic intervals, generate an control set with the same CG enrichement profile 
+# Given a set of genomic intervals, generate a control set with the same CG enrichement profile
 
 The goal is to generate a set of genomic intervals to use as control, i.e. a set  of the same size as the reference set and that does not overlap with it, which has the same CG enrichment profile. The set of genomic regions will be encoded as a `bed` file. 
 
