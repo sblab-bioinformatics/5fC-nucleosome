@@ -20,3 +20,4 @@ The following analysis are derived from data generated in the sections above:
 -   [5fC-related gene expression in mouse embrio heart and brain](5fC_related_expression_in_heart_and_brain/README.md)
 -   [Nucleosome enrichment in H3K27ac, H3K4me1 and CpG island, with or without 5fC.](Nuc_coverage_genomic_features/README.md)
 -   [Generating random control sequences with the same CG enrichment profile as the reference.](Generate_control_sequences_eq_CG_profiles/Generate_control_sequences_eq_CG_profiles.md)
+-   [Plot nucleosome occupancy 5fC vs non5fC in vitro with the same CG enrichment (notebook)](Generate_control_sequences_eq_CG_profiles/plot_reconstitution_brain_and_heart_compare_CG_contents.ipynb)
